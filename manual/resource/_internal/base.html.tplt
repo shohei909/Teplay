@@ -1,0 +1,18 @@
+<!doctype html>
+<html lang="%%branch.lang%%">
+	<head>%%include("_internal/head.html")%%</head>
+	<body>
+		<div id="content">
+			<h1>%%headTitle%%</h1>
+			%%var dir = relative(branch.lang); ""%%
+			%%HtmlWriter.menu(dir, branch.article, branch.lang)%%
+			<div id="article">
+				%%include(format("_internal/article/${branch.lang}/${article.file}.html"))%%
+			</div>
+			%%HtmlWriter.pageLink(dir, branch.lang, branch.article)%%
+		</div>
+		<div id="footer">
+			"Teplay v0.0.0 Manual" created by <a href="https://twitter.com/shohei909">@shohei909</a>
+		</div>
+	</body>
+</html>

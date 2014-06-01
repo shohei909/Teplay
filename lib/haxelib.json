@@ -1,0 +1,11 @@
+{
+  "name": "teplay",
+  "url" : "https://github.com/shohei909/teplay",
+  "license": "MIT",
+  "tags": ["macro", "web"],
+  "description": "static site generator",
+  "version": "0.0.0",
+  "releasenote": "first release",
+  "contributors": ["shohei909"],
+  "dependencies": {}
+}

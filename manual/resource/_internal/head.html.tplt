@@ -1,0 +1,5 @@
+<meta charset="utf-8" />
+<title>%%HtmlWriter.title(title, this[branch.article])%%</title>
+
+%%[for (s in scripts) HtmlWriter.script(relative(s))].join("");%%
+%%[for (s in styleSheets) HtmlWriter.styleSheet(relative(s))].join("")%%

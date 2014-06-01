@@ -1,0 +1,4 @@
+-D bench
+-cp lib
+-cp manual/src
+--macro BuildMain.main()

@@ -1,0 +1,447 @@
+##Teplayテンプレートエンジン
+
+Teplayのテンプレート(*.tplt)では、Haxeと非常に近い文法を使って繰り返し処理、条件分岐、変数の定義、関数呼び出しなどを行うことができます。
+
+##基本的な文法
+
+Teplayテンプレートでは、2個以上の```%```で囲まれた領域に式を記述することができます。そして、その式の評価結果が出力ファイルに展開されます。
+
+###演算
+
+Teplayテンプレートでは、Haxeと同じ演算子が使用できます。
+
+```js:sample.txt.tplt
+1 + 3 * 4 = %%%"%%1 + 3 * 4%%"%%%
+```
+
+↓
+
+```:sample.txt
+1 + 3 * 4 = %%1 + 3 * 4%%
+```
+
+サポートされる演算子一覧は以下を参照してください。
+<http://haxe.org/manual/types-numeric-operators.html>
+
+###複数行
+
+式を```;```で区切って記述した場合、最後に評価された式が出力されます。
+
+```js:sample.txt.tplt
+%%%'%%"a";"b";"c";%%'%%%
+```
+
+↓
+
+```:sample.txt
+%%"a";"b";"c";%%
+```
+
+###変数
+
+```js:sample.txt.tplt
+%%%'%%
+var h = "hello";
+var w = "world";
+h + " " + w;
+%%'%%%
+```
+
+↓
+
+```:sample.txt
+%%
+var h = "hello", w = "world";
+h + " " + w;
+%%
+```
+
+###配列
+
+```js:sample.txt.tplt
+%%%'%%
+var arr = [2, 5];
+arr.push(10);
+arr[1] * arr[2] * arr[3];
+%%'%%%
+```
+
+↓
+
+```:sample.txt
+%%
+var arr = [2, 5];
+arr.push(10);
+arr[0] * arr[1] * arr[2];
+%%
+```
+
+###構造体
+
+```js:sample.txt.tplt
+%%%'%%
+var obj = {
+	str : "hoge",
+	arr : [ {i : 0}, {i : 1} ],
+}
+obj.str + obj["arr"][1].i;
+%%'%%%
+```
+
+↓
+
+```:sample.txt
+%%
+var obj = {
+	str : "hoge",
+	arr : [ {i : 0}, {i : 1} ],
+}
+obj.str + obj["arr"][1].i;
+%%
+```
+
+obj["変数名"]で、動的に変数名を指定することができます。
+
+###条件分岐
+
+```js:sample.txt.tplt
+%%%'%%if (1 + 2 == 3) "yes" else "no"%%'%%%
+```
+
+↓
+
+```:sample.txt
+%%if (1 + 2 == 3) "yes" else "no"%%
+```
+
+###繰り返し(for)
+
+```js:sample.txt.tplt
+%%%'%%
+var arr = [];
+for (i in 0...10) arr.push(i);
+arr.join(",");-
+%%'%%%
+```
+
+↓
+
+```:sample.txt
+%%
+var arr = [];
+for (i in 0...10) arr.push(i);
+arr.join(",");
+%%
+```
+
+###ループ(while)
+
+```js:sample.txt.tplt
+%%%'%%
+var i = 0;
+var arr = [];
+
+while (i++ < 5) arr.push(i);
+
+do {
+	arr.push(i);
+} while (i++ < 5);
+
+arr.join(",");
+%%'%%%
+```
+
+↓
+
+```:sample.txt
+%%
+var i = 0;
+var arr = [];
+
+while (i++ < 5) arr.push(i);
+
+do {
+	arr.push(i);
+} while (i++ < 5);
+
+arr.join(",");
+%%
+```
+
+###break, continue
+
+```js:sample.txt.tplt
+%%%'%%
+var arr = [];
+
+for (i in 1...3) {
+	var j = 0;
+	
+	while (j < 10) {
+		arr.push("j:" + (j += i));
+		trace(j, i);
+		if (j > 3) break;
+	}
+	
+	if (i < 2) continue;
+	arr.push("i:" + i);
+}
+arr.join(",")
+%%'%%%
+```
+
+↓
+
+```:sample.txt
+%%
+var arr = [];
+
+for (i in 1...3) {
+	var j = 0;
+	
+	while (j < 10) {
+		arr.push("j:" + (j += i));
+		if (j > 3) break;
+	}
+	
+	if (i < 2) continue;
+	arr.push("i:" + i);
+}
+arr.join(",")
+%%
+```
+
+###コメント
+
+```js:sample.txt.tplt
+%%%'%%
+//一行コメント
+/*
+　複数行コメント
+*/
+"Hello"
+%%'%%%
+```
+
+↓
+
+```:sample.txt
+%%
+//一行コメント
+/*
+　複数行コメント
+*/
+"Hello"
+%%
+```
+
+
+###エスケープ
+
+%%%"%%"%%%という文字列を表示したい場合、%%%%"%%%"%%%%""%%%%"%%%"%%%%で囲みます。
+
+```js:sample.txt.tplt
+%%%%'%%%"%%"%%%'%%%%
+```
+
+↓
+
+```:sample.txt
+%%%"%%"%%%
+```
+
+%%%%"%%%"%%%%を表示したい場合、%%%%%"%%%%"%%%%%""%%%%%"%%%%"%%%%%で囲みます。
+
+###スコープ
+
+ローカル変数の有効範囲はブロックごとです。また、%%%'%%'%%%をまたいで変数を使用することもできます。
+
+```js:sample.txt.tplt
+%%%'%%
+var i = 99;
+var arr = [];
+for (i in 0...10) {
+	{
+		var i = 9999;
+		i += 1;
+		arr.push(i);
+	}
+	arr.push(i);
+	break;
+}
+arr.push(i);
+arr.join(",");
+%%
+--
+%%i + 1%%'%%%
+```
+
+↓
+
+```:sample.txt
+%%
+var i = 99;
+var arr = [];
+for (i in 0...10) {
+	{
+		var i = 9999;
+		i += 1;
+		arr.push(i);
+	}
+	arr.push(i);
+	break;
+}
+arr.push(i);
+arr.join(",");
+%%
+--
+%%i + 1%%
+```
+
+###配列内包表記
+```js:sample.txt.tplt
+%%%'%%
+var arr = [for(i in 0...10) if (i % 2 == 0) i];
+arr.join(",");
+%%'%%%
+```
+
+↓
+
+```:sample.txt
+%%
+var arr = [for(i in 0...10) if (i % 2 == 0) i];
+arr.join(",");
+%%
+```
+
+###this
+
+グローバル変数を動的に指定したい場合、thisを使います。
+
+```hx:src/Main.hx
+import teplay.Teplayer;
+
+class Main {
+	static function main() {
+		new Teplayer("bin", "resource", {hello : "こんにちは"}).play()
+	}
+}
+```
+
+```js:resource/sample.txt.tplt
+%%%'%%
+this["hel" + "lo"];
+%%'%%%
+```
+
+↓
+
+```:bin/sample.txt
+%%
+execute("_internal/tplt/this.txt.tplt", {hello : "こんにちは"})
+%%
+```
+
+###Haxeと異なる点
+
+Teplayのテンプレートは静的な型付けをしません。また、switch, Mapのリテラル(["a" => "b"]), シングルクオーテーションの文字列の変数展開, ローカル関数は利用できません。
+
+
+##グローバル関数
+
+###print(文字列)
+テキストを出力します。
+
+```js:sample.txt.tplt
+%%%'%%
+print("hello ");
+"world";
+%%'%%%
+```
+
+↓
+
+```:sample.txt
+%%
+print("hello ");
+"world";
+%%
+```
+
+###trace(文字列)
+
+デバッグコンソール上にテキストを出力します。
+
+```js:sample.txt.tplt
+%%%'%%trace("hello"); ""%%'%%%
+```
+
+出力したファイルは取得できますが、行番号は取得できません。
+
+###format(文字列)
+
+Haxeのシングルクオテーションと同等の文字列内の変数展開を行います。
+
+```js:sample.txt.tplt
+%%%'%%
+var i = 10;
+format("i : $i");
+%%'%%%
+```
+
+↓
+
+```:sample.txt
+%%
+var i = 10;
+format("i : $i");
+%%
+```
+
+###include(ファイル名)
+
+外部ファイルを読み込みます。
+
+```js:include.txt.tplt
+%%%'%%1 + 3 * 4%%'%%%
+```
+
+```:sample.txt.tplt
+%%%'%%include("include.txt.tplt");%% => %%include("include.txt");%%'%%%
+```
+
+```:sample.txt
+%%include("_internal/tplt/include.txt.tplt");%% => %%include("_internal/tplt/include.txt");%%
+```
+
+tpltとmdのファイルは拡張子の有無で、変換前と変換後を区別できます。
+
+###execute(ファイル名, パラメータ)
+
+外部のテンプレートファイルを、パラメータを指定して展開します。
+
+
+```js:execute.txt.tplt
+%%%'%%hello%% %%o.world%%'%%%
+```
+
+```js:sample.txt.tplt
+%%%'%%execute("execute.txt.tplt", {hello : "hello", o : {world : "world"}})%%'%%%
+```
+
+```:sample.txt
+%%execute("_internal/tplt/execute.txt.tplt", {hello : "hello", o : {world : "world"}})%%
+```
+
+###relative(ファイル名)
+
+リソースフォルダを基準にした相対パスが、出力先のファイルを基準にした相対パスに変換されます。
+
+```js:txt/sample.txt.tplt
+%%%'%%relative("css/main.css")%%'%%%
+```
+
+```:txt/sample.txt
+%%relative("css/main.css")%%
+```

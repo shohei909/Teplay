@@ -1,0 +1,43 @@
+%%
+var i = 0;
+while(false) i++;
+assertEquals(0, i);
+""
+%%
+
+%%
+var i = 0;
+do{ 
+	i++; 
+}while(false);
+assertEquals(1, i);
+assertEquals(2, ++i);
+assertEquals(2, i++);
+assertEquals(3, i);
+assertEquals(3, i--);
+assertEquals(1, --i);
+""
+%%
+
+%%
+var j = 0;
+while (true) {
+	if (j++ == 3) { 
+		j--;
+		break;
+	} else {
+		continue;
+	}
+	j += 10;
+}
+assertEquals(3, j);
+""
+%%
+
+%%
+var a = [for (i in 1...10) if (i % 2 == 0) i];
+
+var count = 10;
+var d = [while (count > 0) { if (--count > 5) count; } ];
+""
+%%

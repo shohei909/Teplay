@@ -1,0 +1,137 @@
+$rate : 1.414;
+$text_size : 0.80em;
+
+html {
+	font-size: 100%;
+	overflow-y: scroll;
+	webkit-text-size-adjust: 100%;
+	ms-text-size-adjust: 100%;
+}
+
+div#content {
+	color: #444;
+	font-family: 'Lucida Grande','Hiragino Kaku Gothic ProN', Meiryo, sans-serif;
+	font-size: 11px;
+	line-height: 1.5em;
+	margin: auto;
+	max-width: 48em;
+	padding: 0 5px;
+}
+
+h1,h2,h3,h4,h5,h6 {
+	color: #111;
+	font-weight: normal;
+	line-height: 1.2em;
+}
+
+h4,h5,h6 {
+	font-weight: bold;
+}
+
+h1 {
+	margin-top		: 90px;
+	margin-bottom	: 60px;
+	font-size		: $text_size * $rate * $rate * $rate * $rate;
+}
+h2 {
+	margin-top		: 80px;
+	margin-bottom	: 40px;
+	font-size		: $text_size * $rate * $rate * $rate;
+}
+h3 {
+	margin-top		: 40px;
+	margin-bottom	: 30px;
+	font-size		: $text_size * $rate * $rate;
+}
+h4 {
+	margin-top		: 30px;
+	margin-bottom	: 30px;
+	font-size		: $text_size * $rate;
+}
+h5 {
+	margin-top		: 30px;
+	margin-bottom	: 30px;
+	font-size		: $text_size;
+}
+h6 {
+	margin-top		: 30px;
+	margin-bottom	: 30px;
+	font-size		: $text_size / $rate;
+}
+
+p {
+	margin:1em 0;
+}
+
+pre, code, kbd, samp {
+	color: #000;
+	font-size: 0.98em;
+}
+
+pre {
+	display: block;
+	padding: 0px;
+	margin: 0 0 10px 0;
+	white-space: pre;
+	white-space: pre-wrap;
+	word-wrap: break-word;
+	word-break: break-all;
+	background-color: #fbfbfb;
+	border: 1px solid #ccc;
+	border: 1px solid rgba(0,0,0,0.15);
+	-webkit-border-radius: 4px;
+	-moz-border-radius: 4px;
+	border-radius: 4px;
+}
+
+code {
+	font-family: 'courier new', monospace;
+	background-color: #fbfbfb;
+	border: 1px solid #e0e0e4;
+	-webkit-border-radius: 3px;
+	-moz-border-radius: 3px;
+	border-radius: 3px;
+}
+
+pre code {
+	display: block;
+	clear: both;
+	margin: 6px 9.5px;
+	background-color: transparent;
+	color: inherit;
+	border: 0;
+}
+
+pre .code_title{
+	float: left;
+	font-family: 'courier new', monospace;
+	margin-bottom: 5px;
+	padding: 1px 10px;
+	border-bottom: 1px solid #e1e1e8;
+	border-right: 1px solid #e1e1e8;
+	background-color: #f5f5f5;
+	color: #727272;
+	font-size: 95%;
+	line-height: 1.2em;
+}
+
+li p:last-child {
+	margin: 0;
+}
+
+img {
+	border: 0;
+	vertical-align: middle;
+	ms-interpolation-mode: bicubic;
+}
+
+@media only screen and (min-width: 480px) {
+	div#content {
+		font-size: 12px;
+	}
+}
+@media only screen and (min-width: 768px) {
+	div#content {
+		font-size: 13.5px;
+	}
+}

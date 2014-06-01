@@ -1,0 +1,4 @@
+-lib nanotest
+-cp lib
+-cp test/src
+--macro TestMain.main()
