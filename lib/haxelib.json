@@ -3,8 +3,8 @@
   "url" : "https://github.com/shohei909/teplay",
   "license": "MIT",
   "tags": ["macro", "web"],
-  "description": "static site generator",
-  "version": "0.0.0",
+  "description": "fix bugs",
+  "version": "0.0.1",
   "releasenote": "first release",
   "contributors": ["shohei909"],
   "dependencies": {}

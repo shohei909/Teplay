@@ -9,7 +9,16 @@ import teplay.Teplayer;
  */
 class TeplayBasePlugin
 {
-	static var temporaryDir 	= "build_temporary";
+	static var temporaryDir(get, never):String;
+	static private function get_temporaryDir(){
+		var tmp = Sys.getEnv("TMP");
+		if (tmp != null) return tmp + "/haxe_teplay";
+		tmp = Sys.getEnv("TEMP");
+		if (tmp != null) return tmp + "/haxe_teplay";
+		
+		return ".build_temporary";
+	};
+	
 	public var player:Teplayer;
 	
 	public function apply(player:Teplayer) {

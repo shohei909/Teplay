@@ -72,7 +72,7 @@ class PygmentsPlugin extends TeplayBasePlugin {
 			var result = if (config.lang == "") {
 				html;
 			} else {
-				executeOnTemporaryDir("pygmentize", setup.bind(config.lang, html));
+				executeOnTemporaryDir(path, setup.bind(config.lang, html));
 			}
 			
 			if (result == null) { result = html; }

@@ -1,4 +1,4 @@
-Teplayは、Haxeで制作された静的サイトジェネレータです。
+Teplayは、Haxe製の静的サイトジェネレータです。
 
 Teplayは強力なテンプレートエンジンと、[Redcarpet](https://github.com/vmg/redcarpet)(マークダウン)、[Pygments](http://pygments.org/)(シンタックスハイライト)、[Sass](http://sass-lang.com/)(CSS拡張言語)のプラグインを用意しています。
 
@@ -11,9 +11,9 @@ Teplayでのサイトの制作方法は、以下のとおりです。
 
 そしてTeplayを実行すれば、それらがつなぎ合わさったWebサイトが生成されます。
 
-つまり、Teplayを使えば、Webページを作る上でやっかいな多言語化や、メニューやヘッダー、フッターの共通化を簡単に実現できます。
+Teplayを使えば、Webページを作る上でやっかいな多言語化や、メニューやヘッダー、フッターの共通化を簡単に実現できます。
 
-例えば、このページもTeplayによって生成されています。このページがどのようなファイルを元に生成されているかは、以下で見ることができます。
+例えば、このページもTeplayによって生成されています。このページがどのようなファイルから生成されているかは、Githubで見ることができます。
 <https://github.com/shohei909/teplay/tree/master/manual>
 
 ##インストール
@@ -33,7 +33,7 @@ haxelib install teplay
 
 ##Teplayプロジェクトを始める
 
-Teplayでのサイト制作では、FlashDevelopなどのHaxeが動作する開発環境を使用します。
+Teplayでのサイト制作では、FlashDevelopなどのHaxeをサポートしている開発環境を使用します。
 
 FlashDevelopを使う場合は、すでにベースプロジェクトが用意してあります。以下にしたがって必要なファイルをインストールすると、実行ボタンを押すだけで簡単にWebサイトが生成可能な環境が整います。
 

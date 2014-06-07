@@ -38,7 +38,7 @@ TeplayのPygmentsのプラグインを使用すると、出力された```.html`
 ####Pythonのインストール
 以下のページから、Pythonのインストーラをダウンロードできます。
 
-[ダウンロード - Python Japan](http://www.python.jp/download/)
+[Our Downloads | Python.org](https://www.python.org/downloads/)
 
 ####Pygmentsのインストール
 コマンドライン上で以下のコマンドを入力してください。
